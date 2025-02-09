@@ -137,7 +137,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     it "redirects to the <%= table_name %> list" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       delete :destroy, params: {id: <%= file_name %>.to_param}, session: valid_session
-      expect(response).to redirect_to(<%= index_helper %>_url)
+      expect(response).to redirect_to(<%= index_helper(type: :url) %>)
     end
   end
 
