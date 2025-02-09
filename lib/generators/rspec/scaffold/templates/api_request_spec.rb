@@ -37,7 +37,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
   describe "GET /index" do
     it "renders a successful response" do
       <%= class_name %>.create! valid_attributes
-      get <%= index_helper(type: :url) %>, headers: valid_headers, as: :json
+      get <%= index_helper %>_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -55,13 +55,13 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     context "with valid parameters" do
       it "creates a new <%= class_name %>" do
         expect {
-          post <%= index_helper(type: :url) %>,
+          post <%= index_helper %>_url,
                params: { <%= singular_table_name %>: valid_attributes }, headers: valid_headers, as: :json
         }.to change(<%= class_name %>, :count).by(1)
       end
 
       it "renders a JSON response with the new <%= singular_table_name %>" do
-        post <%= index_helper(type: :url) %>,
+        post <%= index_helper %>_url,
              params: { <%= singular_table_name %>: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -71,13 +71,13 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     context "with invalid parameters" do
       it "does not create a new <%= class_name %>" do
         expect {
-          post <%= index_helper(type: :url) %>,
+          post <%= index_helper %>_url,
                params: { <%= singular_table_name %>: invalid_attributes }, as: :json
         }.to change(<%= class_name %>, :count).by(0)
       end
 
       it "renders a JSON response with errors for the new <%= singular_table_name %>" do
-        post <%= index_helper(type: :url) %>,
+        post <%= index_helper %>_url,
              params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
