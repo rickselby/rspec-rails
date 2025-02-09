@@ -129,8 +129,8 @@ module Rspec
       end
 
       if Rails::VERSION::STRING.to_f < 7.0
-        def show_helper(resource_name = file_name)
-          "#{singular_route_name}_url(#{resource_name})"
+        def show_helper(resource_name = file_name, type: :url)
+          "#{singular_route_name}_#{type}(#{resource_name})"
         end
       else
         def show_helper(arg = file_name, type: :url)
